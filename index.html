@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VideoMax - Premium Video Streaming Experience</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            overflow-x: hidden;
+            background: #000;
+            color: #fff;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            padding: 20px 0;
+            backdrop-filter: blur(10px);
+            background: rgba(0, 0, 0, 0.9);
+            transition: all 0.3s ease;
+            border-bottom: 1px solid rgba(255, 0, 0, 0.2);
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            color: #FF0000;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-icon {
+            font-size: 32px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            transition: color 0.3s;
+            font-weight: 500;
+        }
+
+        .nav-links a:hover {
+            color: #FF0000;
+        }
+
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+        }
+
+        .menu-toggle span {
+            width: 25px;
+            height: 3px;
+            background: #FF0000;
+            transition: all 0.3s;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 100px 20px 50px;
+            background: linear-gradient(135deg, #FF0000 0%, #CC0000 50%, #8B0000 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.05) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: moveBackground 20s linear infinite;
+        }
+
+        @keyframes moveBackground {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-text h1 {
+            font-size: 56px;
+            margin-bottom: 20px;
+            line-height: 1.2;
+            animation: fadeInUp 0.8s ease;
+        }
+
+        .hero-text p {
+            font-size: 20px;
+            margin-bottom: 30px;
+            opacity: 0.95;
+            animation: fadeInUp 0.8s ease 0.2s backwards;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            animation: fadeInUp 0.8s ease 0.4s backwards;
+        }
+
+        .btn {
+            padding: 15px 35px;
+            border: none;
+            border-radius: 30px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: #fff;
+            color: #fa2020;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(255,255,255,0.3);
+        }
+
+        .btn-secondary {
+            background: rgba(255,255,255,0.2);
+            color: #fff;
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255,255,255,0.3);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255,255,255,0.3);
+            transform: translateY(-3px);
+        }
+
+        .phone-mockup {
+            position: relative;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .phone-frame {
+            width: 300px;
+            height: 600px;
+            background: #1a1a1a;
+            border-radius: 40px;
+            padding: 15px;
+            box-shadow: 0 30px 60px rgba(255, 0, 0, 0.4);
+            position: relative;
+        }
+
+        .phone-screen {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, #FF0000 0%, #8B0000 100%);
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            overflow: hidden;
+        }
+
+        .phone-notch {
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 25px;
+            background: #1a1a1a;
+            border-radius: 0 0 15px 15px;
+        }
+
+        /* Premium Badge */
+        .premium-badge {
+            background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+            color: #000;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 15px;
+            animation: fadeInUp 0.8s ease;
+        }
+
+        /* Features Section */
+        .features {
+            padding: 100px 20px;
+            background: #0a0a0a;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 48px;
+            margin-bottom: 20px;
+            color: #FF0000;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 18px;
+            color: rgba(255,255,255,0.7);
+            margin-bottom: 60px;
+        }
+
+        .features-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+
+        .feature-card {
+            background: linear-gradient(135deg, rgba(255, 0, 0, 0.1) 0%, rgba(139, 0, 0, 0.1) 100%);
+            padding: 40px;
+            border-radius: 20px;
+            border: 2px solid rgba(255, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(255, 0, 0, 0.6);
+            box-shadow: 0 20px 40px rgba(255, 0, 0, 0.3);
+            background: linear-gradient(135deg, rgba(255, 0, 0, 0.15) 0%, rgba(139, 0, 0, 0.15) 100%);
+        }
+
+        .feature-icon {
+            font-size: 56px;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .feature-card h3 {
+            font-size: 24px;
+            margin-bottom: 15px;
+            color: #FF0000;
+        }
+
+        .feature-card p {
+            color: rgba(255,255,255,0.8);
+            line-height: 1.6;
+            font-size: 16px;
+        }
+
+        /* Screenshots Section */
+        .screenshots {
+            padding: 100px 20px;
+            background: #000;
+        }
+
+        .screenshots-scroll {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            gap: 30px;
+            overflow-x: auto;
+            padding: 20px 0;
+            scroll-behavior: smooth;
+        }
+
+        .screenshots-scroll::-webkit-scrollbar {
+            height: 8px;
+        }
+
+        .screenshots-scroll::-webkit-scrollbar-track {
+            background: rgba(255, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+
+        .screenshots-scroll::-webkit-scrollbar-thumb {
+            background: #FF0000;
+            border-radius: 10px;
+        }
+
+        .screenshot {
+            min-width: 300px;
+            height: 600px;
+            border-radius: 30px;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+            box-shadow: 0 10px 30px rgba(255, 0, 0, 0.3);
+            background: #1a1a1a;
+            border: 2px solid rgba(255, 0, 0, 0.3);
+        }
+
+        .screenshot:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(255, 0, 0, 0.5);
+        }
+
+        .screenshot img {
+            width: 100%;
+            height: 100%;
+            object-fit: fill;
+            display: block;
+        }
+
+        /* Pricing Section */
+        .pricing {
+            padding: 100px 20px;
+            background: linear-gradient(180deg, #0a0a0a 0%, #1a0000 100%);
+        }
+
+        .pricing-card {
+            max-width: 500px;
+            margin: 0 auto;
+            background: linear-gradient(135deg, rgba(255, 0, 0, 0.1) 0%, rgba(139, 0, 0, 0.1) 100%);
+            padding: 50px;
+            border-radius: 30px;
+            border: 2px solid rgba(255, 0, 0, 0.3);
+            text-align: center;
+        }
+
+        .pricing-card h3 {
+            font-size: 32px;
+            margin-bottom: 20px;
+            color: #FF0000;
+        }
+
+        .price {
+            font-size: 48px;
+            font-weight: bold;
+            margin-bottom: 30px;
+        }
+
+        .price-small {
+            font-size: 20px;
+            color: rgba(255,255,255,0.6);
+        }
+
+        .features-list {
+            text-align: left;
+            margin-bottom: 30px;
+        }
+
+        .features-list li {
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255, 0, 0, 0.2);
+            font-size: 16px;
+        }
+
+        .features-list li:last-child {
+            border-bottom: none;
+        }
+
+        /* Download Section */
+        .download {
+            padding: 100px 20px;
+            background: linear-gradient(135deg, #FF0000 0%, #8B0000 100%);
+            text-align: center;
+        }
+
+        .download h2 {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+
+        .download p {
+            font-size: 20px;
+            margin-bottom: 40px;
+            opacity: 0.95;
+        }
+
+        .store-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .store-btn {
+            background: #000;
+            color: #fff;
+            padding: 15px 30px;
+            border-radius: 15px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .store-btn:hover {
+            background: #fff;
+            color: #FF0000;
+            transform: translateY(-5px);
+            border-color: #fff;
+        }
+
+        .store-icon {
+            font-size: 32px;
+        }
+
+        .store-text {
+            text-align: left;
+        }
+
+        .store-text small {
+            display: block;
+            font-size: 12px;
+            opacity: 0.7;
+        }
+
+        .store-text span {
+            display: block;
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        /* Footer */
+        footer {
+            background: #0a0a0a;
+            padding: 60px 20px 30px;
+            text-align: center;
+            border-top: 1px solid rgba(255, 0, 0, 0.2);
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+
+        .social-links a {
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 0, 0, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            text-decoration: none;
+            font-size: 24px;
+            transition: all 0.3s ease;
+            border: 2px solid rgba(255, 0, 0, 0.3);
+        }
+
+        .social-links a:hover {
+            background: #FF0000;
+            transform: translateY(-5px);
+            border-color: #FF0000;
+        }
+
+        .footer-text {
+            color: rgba(255,255,255,0.5);
+            margin-top: 20px;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: flex;
+            }
+
+            .nav-links {
+                position: absolute;
+                top: 70px;
+                left: 0;
+                right: 0;
+                background: rgba(0, 0, 0, 0.95);
+                flex-direction: column;
+                padding: 20px;
+                display: none;
+                border-top: 2px solid rgba(255, 0, 0, 0.3);
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .hero-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .hero-text h1 {
+                font-size: 36px;
+            }
+
+            .hero-text p {
+                font-size: 18px;
+            }
+
+            .cta-buttons {
+                justify-content: center;
+            }
+
+            .phone-mockup {
+                justify-self: center;
+            }
+
+            .phone-frame {
+                width: 250px;
+                height: 500px;
+            }
+
+            .section-title {
+                font-size: 36px;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .download h2 {
+                font-size: 36px;
+            }
+
+            .store-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .screenshot {
+                min-width: 280px;
+                height: 560px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <!-- <span class="logo-icon"><img aria-disabled="false" src="icon_mini.png"></span> -->
+                <span>Tota</span>
+            </div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#features">Features</a></li>
+                <li><a href="#screenshots">Screenshots</a></li>
+                <li><a href="#pricing">Pricing</a></li>
+                <li><a href="#download">Download</a></li>
+            </ul>
+            <div class="menu-toggle" id="menuToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-text">
+                <div class="premium-badge"> 🤗 PREMIUM MEMBERSHIP FREE FOR INDIA ONLY</div>
+                <h1>Stream Without Limits</h1>
+                <p>Download videos, play in background, and enjoy ad-free streaming with premium membership. The ultimate video experience is here.</p>
+                <div class="cta-buttons">
+                    <a href="#download" class="btn btn-primary">Get Premium Now</a>
+                    <a href="#features" class="btn btn-secondary">Explore Features</a>
+                </div>
+            </div>
+            <div class="phone-mockup">
+                <div class="phone-frame">
+                    <div class="phone-notch"></div>
+                    <div class="phone-screen"> 
+                <img src="splach.png" alt="Main Image"> </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="features" id="features">
+        <h2 class="section-title">Premium Features</h2>
+        <p class="section-subtitle">Experience unlimited entertainment with exclusive features</p>
+        <div class="features-grid">
+            <div class="feature-card">
+                <span class="feature-icon">⬇️</span>
+                <h3>Download Videos</h3>
+                <p>Download any video in multiple quality options (144p to 4K) and watch offline anytime, anywhere without internet connection.</p>
+            </div>
+            <div class="feature-card">
+                <span class="feature-icon">🎵</span>
+                <h3>Audio Download</h3>
+                <p>Extract and download audio tracks in high quality formats. Perfect for music lovers who want to listen offline.</p>
+            </div>
+            <div class="feature-card">
+                <span class="feature-icon">💬</span>
+                <h3>Caption Download</h3>
+                <p>Download subtitles and captions in various languages. Read transcripts, translate, or use them for learning purposes.</p>
+            </div>
+            <div class="feature-card">
+                <span class="feature-icon">🎨</span>
+                <h3>Quality Selection</h3>
+                <p>Choose from 144p, 240p, 360p, 480p, 720p, 1080p, 2K, or 4K quality. Control your data usage and storage with flexible options.</p>
+            </div>
+            <div class="feature-card">
+                <span class="feature-icon">🔄</span>
+                <h3>Background Play</h3>
+                <p>Keep videos playing while using other apps or when your screen is off. Multitask freely without interruption.</p>
+            </div>
+            <div class="feature-card">
+                <span class="feature-icon">🚫</span>
+                <h3>Ad-Free Experience</h3>
+                <p>Enjoy uninterrupted streaming without any advertisements. Watch your favorite content without breaks or distractions.</p>
+            </div>
+            <div class="feature-card">
+                <span class="feature-icon">⚡</span>
+                <h3>Fast Downloads</h3>
+                <p>Lightning-fast download speeds with multi-threaded downloading. Save time and get your content instantly.</p>
+            </div>
+            <div class="feature-card">
+                <span class="feature-icon">📊</span>
+                <h3>Smart Management</h3>
+                <p>Organize downloads with folders, manage storage space, and track download progress with an intuitive interface.</p>
+            </div>
+            <div class="feature-card">
+                <span class="feature-icon">🌙</span>
+                <h3>Dark Mode</h3>
+                <p>Easy on the eyes with beautiful dark theme. Comfortable viewing experience in any lighting condition.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="screenshots" id="screenshots">
+        <h2 class="section-title">App Screenshots</h2>
+        <p class="section-subtitle">See the app in action</p>
+        <div class="screenshots-scroll">
+
+             <div class="screenshot">
+                <img src="main.png" alt="Trending Videos Screen">
+            </div>
+            <div class="screenshot">
+                <img src="1.png" alt="Trending Videos Screen">
+            </div>
+            <div class="screenshot">
+                <img src="2.png" alt="Subscriptions Screen">
+            </div>
+            <div class="screenshot">
+                <img src="3.png" alt="Video Player Screen">
+            </div>
+            <div class="screenshot">
+                <img src="4.png" alt="Search Screen">
+            </div>
+            <div class="screenshot">
+                <img src="5.png" alt="What's New Screen">
+            </div>
+        </div>
+    </section>
+
+    <section class="pricing" id="pricing">
+        <h2 class="section-title">Simple Pricing</h2>
+        <p class="section-subtitle">One plan with all features included</p>
+        <div class="pricing-card">
+            <h3>Premium Membership</h3>
+            <div class="price">
+                <s>₹149</s> ₹0
+                <span class="price-small">/month</span>
+                <p class="section-subtitle">* Only in India</p>
+            </div>
+            <ul class="features-list">
+                <li>✅ Download unlimited videos</li>
+                <li>✅ Download audio tracks</li>
+                <li>✅ Download captions & subtitles</li>
+                <li>✅ All quality options (144p - 4K)</li>
+                <li>✅ Background playback</li>
+                <li>✅ Ad-free streaming</li>
+                <li>✅ Offline viewing</li>
+                <li>✅ Priority support</li>
+            </ul>
+            <a href="#download" class="btn btn-primary" style="width: 100%;">Start Free Trial</a>
+        </div>
+    </section>
+
+    <section class="download" id="download">
+        <h2>Download Now</h2>
+        <p>Available on Android, Start your premium experience today!</p>
+        <div class="store-buttons">
+            <a href="#" class="store-btn">
+                <div class="store-icon">🔥</div>
+                <div class="store-text">
+                    <small>Download the</small>
+                    <span>Get Apk File</span>
+                </div>
+            </a>
+
+
+            <a href="#" class="store-btn">
+                <div class="store-icon">⛶</div>
+                <div class="store-text">
+                    <small>GET IT QR</small>
+                    <span>Scan or Share</span>
+                </div>
+            </a>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="social-links">
+                <!-- <a href="#" aria-label="Facebook">📘</a> -->
+                <a href="#" aria-label="Email">@</a>
+                <a href="#" aria-label="Twitter">𝕏</a>
+                <a href="#" aria-label="InstaGram">🅾</a>
+            </div>
+            <p class="footer-text">© 2025 Tota Corporation. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const menuToggle = document.getElementById('menuToggle');
+        const navLinks = document.getElementById('navLinks');
+
+        menuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    navLinks.classList.remove('active');
+                }
+            });
+        });
+
+        // Header scroll effect
+        let lastScroll = 0;
+        const header = document.querySelector('header');
+
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.pageYOffset;
+            
+            if (currentScroll > 100) {
+                header.style.padding = '10px 0';
+            } else {
+                header.style.padding = '20px 0';
+            }
+            
+            lastScroll = currentScroll;
+        });
+
+        // Feature cards animation on scroll
+        const observerOptions = {
+            threshold: 0.2,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.feature-card').forEach((card, index) => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(30px)';
+            card.style.transition = `all 0.6s ease ${index * 0.1}s`;
+            observer.observe(card);
+        });
+    </script>
+</body>
+</html>
