@@ -1,0 +1,9 @@
+{
+    "appname": "Tota",
+    "version": "1.0.0", 
+    "versionCode": "1.0.0",
+    "description": "A lightweight YouTube frontend focused on speed and usability.",
+    "author": "nakabposh", 
+    "updateApkUrl": "https://github.com/TeamNewPipe/NewPipe/releases/download/v0.28.0/NewPipe_v0.28.0.apk",
+    "website": "https://nakabposh.github.io/tota"
+}
